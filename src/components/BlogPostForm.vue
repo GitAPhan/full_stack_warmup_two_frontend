@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="blog_post_form">
     <h1>Submit New Blog Post</h1>
     <form :key="unique_key" class="blog_post_form" action="javascript:void(0)">
       <input type="text" placeholder="username" ref="username" />
-      <input type="text" placeholder="content" ref="content" />
+      <input type="text" placeholder="content" ref="content" class="content_form" />
       <p>{{ post_status_message }}</p>
       <input type="submit" @click="post_blog" />
     </form>
@@ -28,7 +28,7 @@ export default {
 
       axios
         .request({
-          url: "http://localhost:5000/blog",
+          url: "https://randomapiupload.ml/api/blog",
           method: "POST",
           data: {
             username: username,
@@ -37,7 +37,9 @@ export default {
         })
         .then((res) => {
           this.unique_key++;
-          this.post_status_message = res.data;
+          this.post_status_message = res.data.message;
+          var post = [res.data.id, content, username, res.data.created_at]
+          this.$root.$emit('newPost', post)
         })
         .catch((err) => {
           this.unique_key++;
@@ -49,4 +51,15 @@ export default {
 </script>
 
 <style scoped>
+.blog_post_form {
+    display: grid;
+}
+
+.content_form {
+    height: 75px;
+}
+
+input {
+    text-align: center;
+}
 </style>

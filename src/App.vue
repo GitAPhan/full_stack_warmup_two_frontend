@@ -19,4 +19,9 @@ import BlogPostForm from "@/components/BlogPostForm.vue";
 </script>
 
 <style>
+#app {
+  display: grid;
+  place-items: center;
+  row-gap: 20px;
+}
 </style>

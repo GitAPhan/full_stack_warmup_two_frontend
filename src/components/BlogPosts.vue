@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="blog_posts">
     <p>{{ get_status_message }}</p>
     <blog-post-card
       v-for="blog_post in blog_posts"
@@ -24,11 +24,18 @@ export default {
       get_status_message: undefined,
     };
   },
+  methods: {
+    update_post(payload) {
+      this.blog_post.unshift(payload);
+    },
+  },
   mounted() {
+    this.$root.$on("newPost", this.update_post);
+
     // get request to grab all posts
     axios
       .request({
-        url: "http://localhost:5000/blog",
+        url: "https://randomapiupload.ml/api/blog",
       })
       .then((res) => {
         this.blog_posts = res.data;
@@ -41,4 +48,10 @@ export default {
 </script>
 
 <style scoped>
+.blog_posts {
+  display: grid;
+  place-items: center;
+  row-gap: 10px;
+  border: black solid 1px;
+}
 </style>
