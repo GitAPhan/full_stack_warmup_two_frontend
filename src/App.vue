@@ -1,7 +1,7 @@
 <template>
   <div id='app'>
-    <blog-posts></blog-posts>
     <blog-post-form></blog-post-form>
+    <blog-posts></blog-posts>
   </div>
 </template>
 
